@@ -1,13 +1,13 @@
 
 /*********************************************************************************
-WEB322 Assignment 02
+WEB322 Assignment 03
 I declare that this assignment is my own work in accordance with Seneca Academic Policy.  
 No part of this assignment has been copied manually or electronically from any other source (including 3rd party web sites) or distributed to other students.
 
 Name: Sumit kumar
 Student ID: 143678225
-Date: 15/6/2024
-Vercel Web App URL: https://vercel.com/new/sumit07861s-projects/import/hidden?s=https%3A%2F%2Fgithub.com%2FSumit07861%2FappWeb2&hasTrialAvailable=1&showOptionalTeamCreation=false&project-name=app-web2&framework=other&totalProjects=1&remainingProjects=1&deploymentIds=dpl_B5QcF4fJMzcp1PDk8wysS6P5SoBe
+Date: 05-07-2024
+Vercel Web App URL: app-web2.vercel.app
 GitHub Repository URL: https://github.com/Sumit07861/appWeb2
 ********************************************************************************/
 

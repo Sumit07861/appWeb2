@@ -76,6 +76,6 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sumit",
   "license": "ISC"
 }
