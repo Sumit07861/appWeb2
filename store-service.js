@@ -82,5 +82,60 @@ module.exports = {
       }
       resolve(categories);
     });
+  },
+
+  addItem: (itemData) => {
+    return new Promise((resolve, reject) => {
+      try {
+       
+        if (itemData.published === undefined) {
+          itemData.published = false;
+        } else {
+          itemData.published = !!itemData.published; 
+        }
+        itemData.id = items.length + 1;
+
+        items.push(itemData);
+
+        resolve(itemData);
+      } catch (err) {
+        reject(`Error adding item: ${err}`);
+      }
+    });
+  },
+
+
+  getItemsByCategory: (category) => {
+    return new Promise((resolve, reject) => {
+      const filteredItems = items.filter(item => item.category == category);
+      if (filteredItems.length === 0) {
+        reject("No results returned");
+      } else {
+        resolve(filteredItems);
+      }
+    });
+  },
+
+  getItemsByMinDate: (minDateStr) => {
+    return new Promise((resolve, reject) => {
+      const filteredItems = items.filter(item => new Date(item.postDate) >= new Date(minDateStr));
+      if (filteredItems.length === 0) {
+        reject("No results returned");
+      } else {
+        resolve(filteredItems);
+      }
+    });
+  },
+
+  getItemById: (id) => {
+    return new Promise((resolve, reject) => {
+      const item = items.find(item => item.id == id);
+      if (!item) {
+        reject("No result returned");
+      } else {
+        resolve(item);
+      }
+    });
   }
+  
 };
