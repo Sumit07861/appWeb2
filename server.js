@@ -57,6 +57,12 @@ app.engine(
         } else {
           return options.fn(this);
         }
+      },
+      formatDate: function (dateObj) {
+        let year = dateObj.getFullYear();
+        let month = (dateObj.getMonth() + 1).toString();
+        let day = dateObj.getDate().toString();
+        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
       }
     }
   })
@@ -87,7 +93,7 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
-app.get('/shop', async (req, res) => {
+app.get("/shop", async (req, res) => {
   let viewData = {};
 
   try {
@@ -97,61 +103,58 @@ app.get('/shop', async (req, res) => {
     } else {
       items = await storeService.getPublishedItems();
     }
-    items.sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
-    let post = items.length > 0 ? items[0] : null;
+    items.sort((a, b) => new Date(b.itemDate) - new Date(a.itemDate));
+    let post = items[0];
     viewData.items = items;
     viewData.item = post;
   } catch (err) {
-    console.error('Error fetching items:', err);
-    viewData.message = 'No results';
+    viewData.message = "No results";
   }
 
   try {
     let categories = await storeService.getCategories();
     viewData.categories = categories;
   } catch (err) {
-    console.error('Error fetching categories:', err);
-    viewData.categoriesMessage = 'No results';
+    viewData.categoriesMessage = "No results";
   }
-  res.render('shop', { data: viewData });
+  res.render("shop", { data: viewData });
 });
 
 app.get('/shop/:id', async (req, res) => {
   let viewData = {};
 
   try {
-    let items = [];
-    if (req.query.category) {
-      items = await storeService.getPublishedItemsByCategory(req.query.category);
+    const item = await storeService.getItemById(req.params.id);
+    if (!item || !item.published) {
+      viewData.message = `No results for item with ID: ${req.params.id}`;
     } else {
-      items = await storeService.getPublishedItems();
+      viewData.item = item;
+
+      const category = await storeService.getCategoryById(item.categoryID);
+      viewData.item.categoryName = category ? category.categoryName : 'Unknown';
     }
-    items.sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
+  } catch (err) {
+    viewData.message = "Error fetching item details";
+  }
+
+  try {
+    const items = req.query.category
+      ? await storeService.getPublishedItemsByCategory(req.query.category)
+      : await storeService.getPublishedItems();
+    items.sort((a, b) => new Date(b.itemDate) - new Date(a.itemDate));
     viewData.items = items;
   } catch (err) {
-    console.error('Error fetching items:', err);
-    viewData.message = 'No results for items';
+    viewData.message = "not found the item you are looking for";
   }
 
   try {
-    viewData.item = await storeService.getItemById(req.params.id);
-    if (!viewData.item || !viewData.item.published) {
-      viewData.message = `No results for item with ID: ${req.params.id}`;
-    }
-  } catch (err) {
-    console.error('Error fetching item details:', err);
-    viewData.message = 'Error fetching item details';
-  }
-
-  try {
-    let categories = await storeService.getCategories();
+    const categories = await storeService.getCategories();
     viewData.categories = categories;
   } catch (err) {
-    console.error('Error fetching categories:', err);
-    viewData.categoriesMessage = 'Category not found';
+    viewData.categoriesMessage = "could not find the category you are looking for";
   }
 
-  res.render('shop', { data: viewData });
+  res.render("shop", { data: viewData });
 });
 
 app.get("/items", async (req, res) => {
