@@ -80,7 +80,7 @@ app.engine(
 );
 
 app.get('/', (req, res) => {
-  res.redirect('/shop');
+  res.render('/shop');
 });
 
 app.get('/about', (req, res) => {
@@ -304,3 +304,5 @@ storeService.initialize()
   .catch((err) => {
     console.error('Failed to initialize store service:', err);
   });
+
+  module.exports = app;
