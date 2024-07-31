@@ -17,6 +17,7 @@ const storeService = require('./store-service');
 const multer = require("multer");
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
+const pg = require('pg' );
 
 cloudinary.config({
   cloud_name: 'wahi-digital-marketing',
