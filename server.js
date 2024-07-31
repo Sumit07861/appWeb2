@@ -86,7 +86,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('shop');
+  res.redirect('shop');
 });
 
 app.get('/about', (req, res) => {
