@@ -18,6 +18,7 @@ const multer = require("multer");
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
 const exphbs = require('express-handlebars');
+const pg = require( 'pg' );
 
 cloudinary.config({
   cloud_name: 'wahi-digital-marketing',
