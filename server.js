@@ -19,7 +19,9 @@ const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
 const exphbs = require('express-handlebars');
 const pg = require( 'pg' );
-
+const clientSessions = require('client-sessions');
+const authData = require( './auth-service.js' )
+const HTTP_PORT = 8080;
 cloudinary.config({
   cloud_name: 'wahi-digital-marketing',
   api_key: '682177914154915',
