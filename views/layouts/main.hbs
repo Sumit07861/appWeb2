@@ -14,17 +14,52 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Web322 Assignment 5 - Sumit Kumar</a>
+            <a class="navbar-brand" href="#">Web322 Assignment 6 - Sumit Kumar</a>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-          <ul class="navbar-nav">
+<ul class="navbar-nav me-auto">
             {{#navLink "/shop"}}Shop{{/navLink}}
             {{#navLink "/about"}}About{{/navLink}}
-            {{#navLink "/items"}}Items{{/navLink}}
-            {{#navLink "/categories"}}Categories{{/navLink}}
           </ul>
-                </ul>
+{{!-- Modified to give/restrict options based on the login status of the user --}}
+          {{#if session.user}}
+            <ul class="navbar-nav">
+              {{#navLink "/items"}}Items{{/navLink}}
+              {{#navLink "/categories"}}Categories{{/navLink}}
+            </ul>
+
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="userMenu"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span
+                  class="bi bi-person-circle"
+                ></span>&nbsp;&nbsp;{{session.user.userName}}&nbsp;&nbsp;<span
+                  class="caret"
+                ></span>
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="userMenu"
+              >
+                <li><a class="dropdown-item" href="/userHistory">User History</a></li>
+                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+              </ul>
             </div>
+          {{else}}
+            <div class="d-flex">
+              <a href="/register" class="btn btn-success me-2"><span
+                  class="bi bi-gear"
+                ></span>&nbsp;&nbsp;Register</a>
+              <a href="/login" class="btn btn-primary"><span
+                  class="bi bi-chevron-right"
+                ></span>&nbsp;&nbsp;Login</a>
+            </div>
+          {{/if}}
+        </div>
         </div>
     </nav>
     <div class="container" style="padding-top: 90px;">
