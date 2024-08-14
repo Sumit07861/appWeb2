@@ -7,7 +7,7 @@ No part of this assignment has been copied manually or electronically from any o
 Name: Sumit Kumar
 Student ID: 143678225
 Date: 31-07-2024
-Vercel Web App URL: app-web2.vercel.app
+Vercel Web App URL: app-web2-fu5j.vercel.app
 GitHub Repository URL: https://github.com/Sumit07861/appWeb2
 ********************************************************************************/
 
